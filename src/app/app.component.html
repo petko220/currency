@@ -1,40 +1,40 @@
 <div class="upper">
     <div class="CurrencyName">CurrencyName</div>
     <div class="Buttons">
-        <button>Filter</button>
+        <button (click)="filterIsShown = true">Filter</button>
         <button (click)="createHidden = false">AddNewCurrency</button>
-        <button>Settings</button>
+        <button (click)="settingsShown = true">Settings</button>
     </div>
 </div>
 
 <table class="my-table">
     <tr>
-        <td>Active</td>
-        <td>CurrencyID</td>
-        <td>Country</td>
-        <td>CurrencyName</td>
-        <td>CurrencyCode</td>
-        <td>CurrencySymbol</td>
-        <td>Branch</td>
-        <td>Created on</td>
-        <td>Created by</td>
-        <td>Last Changed</td>
-        <td>Last changed by</td>
+        <td [hidden]="!tableColumns.active">Active</td>
+        <td [hidden]="!tableColumns.currencyId">CurrencyID</td>
+        <td [hidden]="!tableColumns.country">Country</td>
+        <td [hidden]="!tableColumns.currencyName">CurrencyName</td>
+        <td [hidden]="!tableColumns.currencyCode">CurrencyCode</td>
+        <td [hidden]="!tableColumns.currencySymbol">CurrencySymbol</td>
+        <td [hidden]="!tableColumns.branch">Branch</td>
+        <td [hidden]="!tableColumns.createdOn">Created on</td>
+        <td [hidden]="!tableColumns.createdBy">Created by</td>
+        <td [hidden]="!tableColumns.lastChanged">Last Changed</td>
+        <td [hidden]="!tableColumns.lastChangedBy">Last changed by</td>
     </tr>
     <tr *ngFor="let currency of allCurrency">
-        <td>{{currency.active}}</td>
-        <td>{{currency.currencyId}}</td>
-        <td>{{currency.country}}</td>
-        <td>{{currency.currencyName}}</td>
-        <td>{{currency.currencyCode}}</td>
-        <td>{{currency.currencySymbol}}</td>
-        <td>{{currency.branch}}</td>
-        <td>{{currency.createdOn}}</td>
-        <td>{{currency.createdBy}}</td>
-        <td>{{currency.lastChanged}}</td>
-        <td>{{currency.lastChangedBy}}</td>
+        <td [hidden]="!tableColumns.active">{{currency.active}}</td>
+        <td [hidden]="!tableColumns.currencyId">{{currency.currencyId}}</td>
+        <td [hidden]="!tableColumns.country">{{currency.country}}</td>
+        <td [hidden]="!tableColumns.currencyName">{{currency.currencyName}}</td>
+        <td [hidden]="!tableColumns.currencyCode">{{currency.currencyCode}}</td>
+        <td [hidden]="!tableColumns.currencySymbol">{{currency.currencySymbol}}</td>
+        <td [hidden]="!tableColumns.branch">{{currency.branch}}</td>
+        <td [hidden]="!tableColumns.createdOn">{{currency.createdOn}}</td>
+        <td [hidden]="!tableColumns.createdBy">{{currency.createdBy}}</td>
+        <td [hidden]="!tableColumns.lastChanged">{{currency.lastChanged}}</td>
+        <td [hidden]="!tableColumns.lastChangedBy">{{currency.lastChangedBy}}</td>
         <button (click)="findOneToEdit(currency.currencyId)">Edit</button>
-        <button (click)="delete(currency.currencyId)" >Delete</button>
+        <button (click)="delete(currency.currencyId)">Delete</button>
     </tr>
 </table>
 
@@ -55,7 +55,7 @@
             <option value="Pleven">4.Pleven</option>
         </select>
         <div class="check">
-            <input ngModel name="active" id="checkbox" type="checkbox">
+            <input checked ngModel name="active" id="checkbox" type="checkbox">
             <label for="checkbox">CurrencyStatusActive</label>
         </div>
         <div class="button-container">
@@ -91,10 +91,28 @@
     </form>
 </div>
 
-<div class="filter-container">
-    <form id="filterForm">
+<div *ngIf="filterIsShown" class="filter-container">
+    <form id="filterForm" #filterForm="ngForm" (ngSubmit)="filter(filterForm)">
         <label for="filterInput">Filter:</label>
         <input ngModel type="text" id="filterInput" name="filterInput" placeholder="Filter by currency code">
-        <button>Filter</button>
+        <button type="submit">Filter</button>
+        <button (click)="filterIsShown = false">Hide</button>
     </form>
+</div>
+
+<div *ngIf="settingsShown" class="checkbox-container">
+    <form id="checkboxForm">
+        <label  for="checkbox1"><input (click)="removeColumn('active')" checked type="checkbox" id="checkbox1" name="checkbox1"> Active</label>
+        <label for="checkbox2"><input (click)="removeColumn('currencyId')" checked type="checkbox" id="checkbox2" name="checkbox2">CurrencyID</label>
+        <label for="checkbox3"><input (click)="removeColumn('country')" checked type="checkbox" id="checkbox3" name="checkbox3">Country</label>
+        <label for="checkbox4"><input (click)="removeColumn('currencyName')" checked type="checkbox" id="checkbox4" name="checkbox4">CurrencyName</label>
+        <label for="checkbox5"><input (click)="removeColumn('currencyCode')" checked type="checkbox" id="checkbox5" name="checkbox5">CurrencyCode</label>
+        <label for="checkbox6"><input (click)="removeColumn('currencySymbol')" checked type="checkbox" id="checkbox6" name="checkbox6">CurrencySymbol</label>
+        <label for="checkbox7"><input (click)="removeColumn('branch')" checked type="checkbox" id="checkbox7" name="checkbox7">Branch</label>
+        <label for="checkbox8"><input (click)="removeColumn('createdOn')" checked type="checkbox" id="checkbox8" name="checkbox8">Created on</label>
+        <label for="checkbox9"><input (click)="removeColumn('createdBy')" checked type="checkbox" id="checkbox9" name="checkbox9">Created by</label>
+        <label for="checkbox10"><input (click)="removeColumn('lastChanged')" checked type="checkbox" id="checkbox10" name="checkbox10">Last changed</label>
+        <label for="checkbox11"><input (click)="removeColumn('lastChangedBy')" checked type="checkbox" id="checkbox11" name="checkbox11">Last changed by</label>
+    </form>
+    <button (click)="settingsShown = false">Hide</button>
 </div>
