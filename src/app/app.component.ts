@@ -9,6 +9,7 @@ import { Currency } from 'src/types/currency';
 })
 export class AppComponent {
   title = 'currency';
+  masterCurrencyStore: Currency[] =[];
   allCurrency: Currency[] = [];
   currentId = 0;
   createHidden = true;
@@ -44,6 +45,7 @@ export class AppComponent {
     value.lastChangedBy = "Venelin Todorov";
     value.lastChanged = new Date().toDateString();
     this.allCurrency.push(value);
+    this.masterCurrencyStore.push(value);
   }
 
   delete(id: number) {
@@ -77,6 +79,7 @@ export class AppComponent {
     this.filteredCurrency = this.allCurrency.filter(currency => currency.currencyCode == value);
     console.log(this.filteredCurrency);
     this.areFiltered = true;
+    this.allCurrency = this.filteredCurrency;
   }
 
   removeColumn(columnName: string) {
@@ -170,6 +173,11 @@ export class AppComponent {
         break;
     }
 
+  }
+
+  removeFilter() {
+    this.filterIsShown = false;
+    this.allCurrency = this.masterCurrencyStore;
   }
 
 }

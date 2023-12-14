@@ -36,6 +36,7 @@
         <button (click)="findOneToEdit(currency.currencyId)">Edit</button>
         <button (click)="delete(currency.currencyId)">Delete</button>
     </tr>
+
 </table>
 
 
@@ -96,7 +97,7 @@
         <label for="filterInput">Filter:</label>
         <input ngModel type="text" id="filterInput" name="filterInput" placeholder="Filter by currency code">
         <button type="submit">Filter</button>
-        <button (click)="filterIsShown = false">Hide</button>
+        <button (click)="removeFilter()">Hide</button>
     </form>
 </div>
 
