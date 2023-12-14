@@ -66,7 +66,7 @@
 </div>
 
 <div [hidden]="editHidden" class="form-container">
-    <form class="my-form" #form="ngForm" (ngSubmit)="edit(form)">
+    <form class="my-form" #editForm="ngForm" (ngSubmit)="edit(editForm)">
         <input ngModel type="text" id="currencyName" name="currencyName" placeholder="CurrencyName" required>
 
         <input ngModel type="text" id="currencyCode" name="currencyCode" placeholder="CurrencyCode" required>
@@ -85,8 +85,16 @@
             <label for="checkbox">CurrencyStatusActive</label>
         </div>
         <div class="button-container">
-            <button type="submit">Edit</button>
+            <button type="submit">Submit</button>
             <button (click)="editHidden = true" type="reset">Discard</button>
         </div>
+    </form>
+</div>
+
+<div class="filter-container">
+    <form id="filterForm">
+        <label for="filterInput">Filter:</label>
+        <input ngModel type="text" id="filterInput" name="filterInput" placeholder="Filter by currency code">
+        <button>Filter</button>
     </form>
 </div>

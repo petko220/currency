@@ -13,7 +13,9 @@ export class AppComponent {
   currentId = 0;
   createHidden = true;
   editHidden = true;
-  currentEdit = {};
+  indexToEdit = 0;
+  filteredCurrency: Currency[] = [];
+
 
   create(form: NgForm) {
     const value:Currency = form.value;
@@ -36,15 +38,26 @@ export class AppComponent {
   findOneToEdit(id:number) {
     this.editHidden = false;
     const result = this.allCurrency.find(currency => currency.currencyId === id);
-    if(result) {
-      this.currentEdit = result
-      console.log(this.currentEdit);
-      
-    }
+    const index = this.allCurrency.findIndex(currency => result?.currencyId === currency.currencyId );
+    this.indexToEdit = index;
   }
   
   edit(form: NgForm) {
     const value:Currency = form.value;
+    const currencyToEdit = this.allCurrency[this.indexToEdit];
+    currencyToEdit.currencyName = value.currencyName
+    currencyToEdit.currencyCode = value.currencyCode
+    currencyToEdit.currencySymbol = value.currencySymbol
+    currencyToEdit.branch = value.branch
+    currencyToEdit.active = value.active
+    value.lastChanged = new Date().toDateString();
+    
+  }
+
+  filter(form:NgForm) {
+    const value:Currency = form.value;
+    console.log(value);
+    
   }
 
 }
